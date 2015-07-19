@@ -122,7 +122,7 @@ new.median.steps <- median(steps.summary$total.steps)
 #### *Conclusion: After rounding the results, there is practically insignificant difference in mean or median between datasets with and without missing values*
 
 #### e. Analyse weekday weekend impact using revised activity dataset and create a panel plot
-```{r day_impact}
+```{r day_impact, fig.width=10}
 # Create a new factor variable in revised data set without missing values
 new.activity.data <- mutate(new.activity.data, day.type = ifelse(weekdays(new.activity.data$date) == "Saturday" | weekdays(new.activity.data$date) == "Sunday", "Weekend", "Weekday" ))
 new.activity.data$day.type <- as.factor(new.activity.data$day.type)
@@ -135,4 +135,4 @@ avg.steps.day.type <- new.activity.data %>% group_by(interval, day.type) %>% sum
 
 plot.panel <- ggplot(avg.steps.day.type, aes(x=interval, y=avg.steps.by.day, color = day.type, group = 1)) + geom_line() + facet_wrap(~ day.type, ncol = 1, nrow=2) + xlab("Interval") + ylab("Average number of steps")
 print(plot.panel)
-
+```
